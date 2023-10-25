@@ -35,4 +35,3 @@ obj['friends'][1].phone = '010-696969'
 console.log('두번째 친구 연락처: ', obj.friends[1].phone);
 obj.hobbies.forEach(hobby => console.log(hobby));
 
-
