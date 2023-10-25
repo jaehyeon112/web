@@ -11,6 +11,11 @@ document.getElementById('saveBtn').onclick = function(e){
     let name = document.getElementById('name').value;
     let age = document.getElementById('age').value;
     let height = document.getElementById('height').value;
+    
+    if(!name || !age || !height){
+		alert('값을 입력하시오.');
+		return;
+	}
 
     const mem = new Member(name, age, height);
     
