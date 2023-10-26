@@ -7,80 +7,14 @@
 </head>
 
 <body>
+	
+	<button id="button" type="button">버튼</button>
+	<button id="button2" type="button">테스트</button>
+	
 	<div id="show">
-		
 	</div>
-	
-	
-	<!--<table id="cal" border="1">
-		<thead>
-			<tr>
-				<th>일</th>
-				<th>월</th>
-				<th>화</th>
-				<th>수</th>
-				<th>목</th>
-				<th>금</th>
-				<th>토</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-				<td>6</td>
-				<td>7</td>
-			</tr>
-		</tbody>
-	</table>-->
-	
-	<script>
-		const calendar = {
-			week : ['일','월','화','수','목','금','토'],
-			
-			
-			
-			makeHead(){
-				let str = `<thead><tr>`
-					for(let a of this.week){
-						str += `<th>${a}</th>`
-					}
-					str += `</tr></thead>`
-					return str;
-			},
-			
-			makeBody(){
-				let str = `<tbody>`
-					let count = 1;
-					for(let i = 0; i < 4; i++){
-						str += `<tr>`
-						for(let j = 1; j < 8; j++){							
-						str += `<td>${i*7+j}</td>`
-						count++;
-						}
-						str += `</tr>`
-					}
-					str += `</tbody>`
-					return str
-			},
-			makeCalender(){
-				let str = `<table border="1">`
-					str += this.makeHead()
-					str += this.makeBody()
-					str += `</table>`
-					document.getElementById('show').innerHTML = str;
-			}
-			
-		}
-		//calendar => table
-		// makeHead()
-		// makeBody()
-		// makeCalendar() => 호출시 화면에 
-		calendar.makeCalender();
-		
+
+	<script src="calendarObj.js">
 	</script>
 </body>
 

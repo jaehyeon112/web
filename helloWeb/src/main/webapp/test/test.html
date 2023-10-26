@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<div>
+		<ul>
+			<li><span>아이템1</span></li>
+			<li><span>아이템2</span></li>
+			<li><span>아이템3</span></li>
+		</ul>
+	</div>
+
+	<script>
+		function eventPropagation(useCapture) {
+			document.querySelector('body').addEventListener('click', function () {
+				console.log("body"), useCapture
+			});
+			document.querySelector('div').addEventListener('click', function () {
+				console.log("div"), useCapture
+			});
+			document.querySelector('ul').addEventListener('click',function(){
+				console.log("ul"),useCapture
+			});
+			document.querySelector('li').addEventListener('click',function(){
+				console.log("li"),useCapture
+			});
+			document.querySelector('span').addEventListener('click',function(){
+				console.log("target"),useCapture
+			})
+		}
+		
+		eventPropagation(false)
+		
+	</script>
+
+
+</body>
+
+</html>
