@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 	public DataSource data = DataSource.getInstance();
 	public Connection conn;
 	public PreparedStatement psmt;
-
+	
 	@Override
 	public List<MemberVO> memberList() {
 		List<MemberVO> list = new ArrayList<>();
@@ -37,8 +37,8 @@ public class MemberServiceImpl implements MemberService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			
-			if(psmt!=null) {
+
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
 					e.printStackTrace();
 				}
 			}
-			if(conn != null) {
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -57,6 +57,54 @@ public class MemberServiceImpl implements MemberService {
 
 		}
 		return list;
+	}
+
+
+	@Override
+	public boolean addMember(MemberVO vo) {
+		String sql = "insert into member values(?,?,?,?)";		
+		try(Connection conn = data.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql)){			
+			psmt.setString(1, vo.getMid());
+			psmt.setString(2, vo.getPass());
+			psmt.setString(3, vo.getName());
+			psmt.setString(4, vo.getPhone());
+			int r = psmt.executeUpdate(); // 반환값은 데이터처리 건수.
+			if(r==1) {
+				return true;
+			}
+		}  catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+
+		}
+		
+		
+		return false;
+	}
+
+
+	@Override
+	public boolean modMember(MemberVO vo) {
+		String sql = "update member set pass=?, name=?, phone=? where mid=?";
+		
+		try(Connection conn = data.getConnection();
+			PreparedStatement psmt = conn.prepareStatement(sql)){
+			psmt.setString(1, vo.getPass());
+			psmt.setString(2, vo.getName());
+			psmt.setString(3, vo.getPhone());
+			psmt.setString(4, vo.getMid());
+			int r = psmt.executeUpdate();
+			if(r==1) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+
+		}
+		
+		return false;
 	}
 
 }

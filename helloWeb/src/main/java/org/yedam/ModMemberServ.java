@@ -2,7 +2,8 @@ package org.yedam;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +15,20 @@ import org.yedam.service.MemberService;
 import org.yedam.service.MemberVO;
 import org.yedam.service.serviceImpl.MemberServiceImpl;
 
-/**
- * Servlet implementation class MemberListServ
- */
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-//로컬호스트 주소값에  ↓를 치면 뜸.. 주소창에 친다는 의미는 get방식 요청..
-@WebServlet("/MemberListServ2")
-public class MemberListServ2 extends HttpServlet {
+/**
+ * Servlet implementation class ModMemberServ
+ */
+@WebServlet("/ModMemberServ.do")
+public class ModMemberServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServ2() {
+    public ModMemberServ() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,36 +37,32 @@ public class MemberListServ2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// ?mid=M009&pass=... 어쩌구 저쩌구
+		
+		String mid = request.getParameter("mid");
+		String pass = request.getParameter("pass");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		
+		MemberVO vo = new MemberVO(mid,pass,name,phone);
 		MemberService svc = new MemberServiceImpl();
-		List<MemberVO> list = svc.memberList();
-		System.out.println("JSON데이터 입니다.");
-		
-		response.setContentType("text/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		// json 포맷은... 
-		// [{"mid":value, "pass":value, "name":value, "phone":value"}] 
-		// 와 같이 만들어야한다~
+		Gson gson = new GsonBuilder().create();
+	
+		Map<String, Object> map = new HashMap<>();
 		
-		String str = "[";
-		int cnt = 0;
-		for(MemberVO vo : list) {
-			str += "{";
-			str += "\"mid\":\""+ vo.getMid() + "\",";
-			str += "\"pass\":\""+ vo.getPass() + "\",";
-			str += "\"name\":\""+ vo.getName() + "\",";
-			str += "\"phone\":\""+ vo.getPhone() + "\"";
-			str += "}";
-			if(++cnt != list.size()) {
-				str += ",";
-			}
+		if(svc.modMember(vo)) {
+			map.put("retCode", "OK");
+			map.put("VO", vo);
+			}else {
+			map.put("retCode", "NG");
+			map.put("VO", vo.getMid());			
 		}
-		str += "]";
-		out.print(str);
-		
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String json = gson.toJson(map);
+		out.print(json);
 		
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
