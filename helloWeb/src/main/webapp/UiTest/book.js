@@ -56,7 +56,7 @@ function loadJson() {
 				trTag += `<td>${member[prop]}</td>`;
 			}
 			// 그림에 button 삭제 있길래 추가함..
-				trTag += `<td><button>삭제</button>`
+				trTag += `<td><button onclick="this.parentElement.parentElement.remove()" >삭제</button>`
 			trTag += `</tr>`
 			return trTag;
 		}

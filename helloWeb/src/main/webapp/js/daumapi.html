@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>daumapi.html</title>
+
+</head>
+
+<body>
+	<!-- 지도를 표시할 div 입니다 -->
+	<div id="map" style="width:100%;height:450px;"></div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=548022ae177172fab079e4bcf9a03c59"></script>
+	<script>
+		let href = location.href;
+		console.log(href);
+		// 이게 뭔소리? 아~ ?x= 를 찾는다면 3글자 뒤에 있는 숫자를 가져와야 하므로~~
+		let xpos = href.indexOf('?x=')+3;
+		let ypos = href.indexOf('&y=')+3;
+		// ypos는 +3 을 했지만 가져와야하는 글자는 ypos까지만 가져와야하므로 -3 다시 해줌.
+		let lat = href.substring(xpos,ypos-3)
+		let lng = href.substring(ypos)
+		
+		console.log(lat)
+		console.log(lng)
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center: new kakao.maps.LatLng(lat,lng), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};
+
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	</script>
+</body>
+
+</html>
