@@ -14,8 +14,8 @@
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=548022ae177172fab079e4bcf9a03c59"></script>
 	<script>
+		// 현재 주소의 값을 href에 담음.
 		let href = location.href;
-		console.log(href);
 		// 이게 뭔소리? 아~ ?x= 를 찾는다면 3글자 뒤에 있는 숫자를 가져와야 하므로~~
 		let xpos = href.indexOf('?x=')+3;
 		let ypos = href.indexOf('&y=')+3;
