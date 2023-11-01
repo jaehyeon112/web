@@ -17,7 +17,7 @@ public class StudentServiceImpl implements StudentService{
 	public boolean editStudent(StudentVO vo) {
 		return dao.update(vo) == 1;
 	}
-
+//
 	@Override
 	public boolean removeStudent(String sid) {
 		return dao.delete(sid) == 1;
