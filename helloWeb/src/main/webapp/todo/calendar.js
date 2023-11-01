@@ -1,41 +1,10 @@
-<<<<<<< HEAD
-//calendarObj.js
-
-
-const cal = {
-	showCalendar(){
-		console.log('showCalendar')
-	}
-}
-
-document.getElementById('todayBtn').onclick = function(e){
-	alert('오늘 날짜입니다')
-}
-=======
-
-
-let button2 = document.querySelector('#button2');
-function test(e){
-	console.log(e.target.value+ 'clicked')
-}
-
-
-button2.addEventListener('click',test)
-
-		
-	
-			
-		
-		
-		
-let button = document.querySelector('#button');
-button.addEventListener('click',function(){
-	const today = new Date();
+const today = new Date();
 		console.log(`오늘날짜 : ${today.getDate()}일`)
 		let todayDate = today.getDate();
-
 		const calendar = {
 			week: ['일', '월', '화', '수', '목', '금', '토'],
+
+
 
 			makeHead() {
 				let str = `<thead><tr>`
@@ -45,6 +14,7 @@ button.addEventListener('click',function(){
 				str += `</tr></thead>`
 				return str;
 			},
+
 			makeBody() {
 				let str = `<tbody><tr>`
 				for (let i = 1; i <= 31; i++) {
@@ -76,6 +46,5 @@ button.addEventListener('click',function(){
 			}
 		}
 		calendar.makeCalender();
-})
-
->>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
+		
+		export{calendar}

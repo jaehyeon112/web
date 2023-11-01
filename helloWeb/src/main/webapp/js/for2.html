@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,4 +27,32 @@
         
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>js/for2.html</title>
+</head>
+
+<body>
+	<script>
+		const studentArray = [
+			{sno: 1, sname: '홍길동', score: 80},
+			{sno: 2, sname: '박민서', score: 88},
+			{sno: 3, sname: '최창식', score: 92}
+		]
+		let sum = avg = 0;
+		studentArray.forEach(function (item, idx) {
+			console.log(`이름 : ${item.sname}`);
+			sum += item.score;
+		})
+		avg = sum / studentArray.length
+		avg = avg.toFixed(2);
+		console.log(`점수의 합 : ${sum} , 평균은 ${avg}`)
+
+	</script>
+</body>
+
+>>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
 </html>

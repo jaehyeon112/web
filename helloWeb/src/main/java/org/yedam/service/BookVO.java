@@ -1,5 +1,6 @@
 package org.yedam.service;
 
+<<<<<<< HEAD
 public class BookVO {
 	private String book_code;
 	private String book_title;
@@ -37,4 +38,20 @@ public class BookVO {
 		this.book_price = book_price;
 	}
 
+=======
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+//lombok 사용한것임... 굳이 setter,getter,toString등 셋팅안해줘도 됨.
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookVO {
+	private String bookCode;
+	private String bookTitle;
+	private String bookAuthor;
+	private String bookPress;
+	private int bookprice;
+>>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
 }

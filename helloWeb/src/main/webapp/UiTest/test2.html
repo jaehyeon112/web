@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>test2.html</title>
+</head>
+
+<body>
+	<div id="show">
+	</div>
+	<script>
+		const novemberCal = {
+			// 달력의 일~토 를 작성
+			weekday: ["일", "월", "화", "수", "목", "금", "토"],
+			makeHead() {
+				let tr = `<thead><tr>`;
+				for (let head of this.weekday) {
+					tr += `<th>${head}</th>`
+				}
+				tr += `</tr></thead>`
+				return tr;
+			},
+			makeBody() {
+				let tr = `<tbody><tr>`
+				//11월의 시작은 수요일부터이므로 3칸을 비울 수 있도록 하였음.
+				for (let i = 0; i < 3; i++) {
+					tr += `<td></td>`
+				}
+				// 수요일부터 토요일까지 1일부터 5일까지 작성 후 tr태그를 열고 닫아 줄 바꿈.
+				for (let i = 1; i < 5; i++) {
+					tr += `<td>${i}</td>`;
+				}
+				tr += `<tr></tr>`
+				
+				// 5일부터 30일까지, 7로 나눴을때 나머지가 4가 되면 ex(11,18,25) 다음줄이 되도록 함.
+				for (let i = 5; i < 31; i++) {
+					tr += `<td>${i}</td>`
+					if (i % 7 == 4) {
+						tr += `<tr></tr>`
+					}
+				}
+				tr += `</tr></tbody>`
+				return tr;
+			},
+			makeTable() {
+				let tr = `<h1>11월 달력</h1><table border="1">`
+				tr += this.makeHead();
+				tr += this.makeBody();
+				tr += `</table>`
+				return tr;
+			},
+			//문제에 제시된 show 메서드.
+			show() {
+				document.getElementById('show').innerHTML = this.makeTable();
+			}
+		}
+		
+		novemberCal.show();
+	</script>

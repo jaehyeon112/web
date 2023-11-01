@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>js/fetch.html</title>
+<<<<<<< HEAD
 	<script type="module" src="fetch1.js"></script>
 </head>
 
@@ -30,6 +31,45 @@
 			.catch((err) => {
 				console.log('error : ', err)	//앞부분에서 에러가 나먄 더이상 넘어가지 않고 바로 catch부분으로 넘어옴
 			})
+=======
+	<script type="module"src="fetch1.js"></script>
+	
+</head>
+
+<body>
+	<div id="show"> </div>
+	<script>
+		//비동기 방식을 동기 방식으로 만들 수 있다.
+		//Promise 객체 생성 () 매개값으로 함수를 받는다.
+		//promise의 상태 1.fullfilled(이행 완료), pendding(대기중), rejected(거부됨)
+		//fullfilled가 되면 then() 메서드를 실행하게 됨 
+		const promise = new Promise(function(resolve){
+			// 시간 지연 함수
+			setTimeout(function(){
+				console.log('실행')
+				// fullfilled가 되면 Success라는 값을 then메서드에 resolve에 담겠다.
+				resolve('Success');
+			}, 500);
+		});
+		
+		//resolve에 Success가 담겨진 상태
+		promise.then((resolve)=>{
+			console.log(`then : ${resolve}`)
+			//리턴 값으로 promise를 반환할 수 있음. 그래서 성공하면 또 then()이나 실패시 catch() 사용 가능.
+			return 'OK';
+			// 성공하면 result에 OK라는 값을 받게 되어... console.log에 찍어보면 OK라는 값이 나옴.
+		}).then((result)=>{
+			console.log('2then : ' , result);
+			// 없는 값을 return시켜 에러 발생시킴.
+			return message;
+		}).catch(err=>{
+			// catch에서 에러를 잡아 에러 메세지를 console.log에 출력시킴.
+			console.log('error : ' , err);
+		})
+		
+		
+
+>>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
 	</script>
 </body>
 
