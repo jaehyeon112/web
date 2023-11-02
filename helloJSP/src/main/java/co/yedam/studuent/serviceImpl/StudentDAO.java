@@ -73,7 +73,7 @@ public class StudentDAO {
 	
 	public int update(StudentVO vo) {
 		int r = 0;
-		String sql = "UPDATE STUDENT SET STUDENT_NAME=?,STUDENT_PASSWORD=?,STUDENT_DEPT=?,STUDENT_BIRTHDAY =?WHERE STUDENT_ID = ?";
+		String sql = "UPDATE STUDENT SET STUDENT_NAME=?,STUDENT_PASSWORD=?,STUDENT_DEPT=nvl(?,student_DEPT),STUDENT_BIRTHDAY =?WHERE STUDENT_ID = ?";
 		conn = dao.getConnection();
 		try {
 			psmt = conn.prepareStatement(sql);

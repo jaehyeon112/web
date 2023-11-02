@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<<<<<<< HEAD
 <dataset>
 	<record>
 		<id>1</id>
@@ -27,32 +26,3 @@
 		<email>aebenezer4@eepurl.com</email>
 	</record>
 </dataset>
-=======
-	<dataset>
-		<record>
-			<id>1</id>
-			<first_name>Herold</first_name>
-			<email>hmargery0@bing.com</email>
-		</record>
-		<record>
-			<id>2</id>
-			<first_name>Lenard</first_name>
-			<email>lbuddleigh1@hc360.com</email>
-		</record>
-		<record>
-			<id>3</id>
-			<first_name>William</first_name>
-			<email>wcauser2@state.tx.us</email>
-		</record>
-		<record>
-			<id>4</id>
-			<first_name>Wyn</first_name>
-			<email>wpyne3@homestead.com</email>
-		</record>
-		<record>
-			<id>5</id>
-			<first_name>Nobe</first_name>
-			<email>ncunniff4@yahoo.co.jp</email>
-		</record>
-	</dataset>
->>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
