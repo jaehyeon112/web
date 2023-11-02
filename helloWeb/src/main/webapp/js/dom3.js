@@ -1,123 +1,163 @@
-import table from './domTable.js'
-// dom3.js
-// table>(thead>tr>th*5)+(tbody>tr>td*5)와 같은 형식으로 만들것.
+//dom3.js
+//table>(thead>tr>th)+(tbody>tr>td)*데이터 갯수
+import table from './domTable.js';
 
-//공공 데이터 포털 사이트에서 가져온 코로나 예방접종 할수있는 곳에 대한 정보.
-let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=JxjILV8BuO4zKqeFYbrkNXtGp2oJzpGCXS5En2AgAaJfx2%2F3cFgZqBDu3v1%2F002AqHYVarFqTcZ2J8tdWJyizQ%3D%3D'
+let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=TFWqtpjCNl5TF0rwNkfs2%2Facv343083oIbkMFifaiNPGwXCyS0SaBrLJZDr%2B7Ext6NPSpEsEV62MgyZc2KNWOA%3D%3D'
+let titles = ['센터 id', '센터명', '시설', '연락처'];
 
-// 테이블의 thead부분의 데이터.
-let title = ['센터id', '센터명', '의료원', '연락처', '위도', '경도']
+fetch(url)
+	.then(resolve => resolve.json())	//function(resolve){return resolve.json()}을 줄인것
+	.then(fetchCallback)	//fetch는 함수 자체를 받기 때문에 함수이름만 적어주면 알아서 작동
+	.catch(err => console.log('error : ', err))
 
-// 이거 공부 좀 하자.. fetch => 프로미스의 래퍼 같은 느낌으로 프로미스의 결과값을 반환함.
-fetch(url).then(resolve => resolve.json())
-	.then(fetchCallback) // 성공하면 fullfilled => then에 정의되어있는 메소드에 기능을 실행한다.
-	.catch(err => console.log('error=>', err))
 
-//fetch 호출되는 함수 callback함수 : result는 resolve의 값을 리턴받음. 왜냐? then으로 넘어온 데이터니까...
+
+
+//fetch에 의해 호출되는 함수. callback함수
 function fetchCallback(result) {
+	let rawData = result.data;	//result가 가진 속성 중 data만 가져옴	//원래 데이터
 
-	//result로 들어온 값은 fetch의 resolve의 json타입을 변환한 객체 값이 들어온다.
-	// 그 값의 data 속성에는 배열안의 객체 = [{key : value , key: value},{...}] 의 형식으로 값이 키와 밸류 형식으로 저장되어 있다. 
-	let rawData = result.data;
-
-	// optAry에 sido 정보를 중복된 값은 제거한 값을 담을 배열임.
-	let sidoAry = [];
-
-	//이 데이터의 sido의 중복된 값을 제거한뒤  sidoAry에 푸쉬로 넣음..
-	rawData.forEach(ele => {
-		if (sidoAry.indexOf(ele.sido) == -1) {
-			sidoAry.push(ele.sido);
+	let sidoAry = []; 	//여기에 sido정보를 출력(중복된 값은 제외)
+	rawData.forEach((raw) => {
+		if (sidoAry.indexOf(raw.sido) == -1) {
+			sidoAry.push(raw.sido)
 		}
 	})
-
-	//set으로 하게 되면 객체가 되버리는듯?
-	//sidoAry = new Set(sidoAry);
-
-	// select 태그의 id값을 sidosel에 담았었음. 즉, sidosel == html의 특정 select 태그
-	let sidosel = document.querySelector('#sidolist')
-
-	// 중복된 값이 제거된 sidoAry의 값을 for문으로 돌며 option태그와 그 내용을 태그 안에 넣은 뒤 select의 append로 자식태그로 만들어버림
-	sidoAry.forEach(ele => {
-		let option = document.createElement('option')
-		option.innerHTML = ele;
-		sidosel.append(option)
+	let sidoSel = document.querySelector('#sidoList')
+	let option = document.createElement('option');
+		option.innerHTML = '선택하세요';
+		sidoSel.append(option);
+	sidoAry.forEach((sido) => {
+		let option = document.createElement('option');
+		option.innerHTML = sido;
+		sidoSel.append(option);
 	})
-	// 옵션을 바꾸면 테이블이 선택된것들만 나타나게 하기 위해...
-	// select 태그에 change이벤트 발생.. change가 됐을때, 함수를 호출시킴. 만약 change를 안하면 호출안됨.
-	sidosel.addEventListener('change', changeCallBack)
+	//select 태그에 change이벤트 발생
+	sidoSel.addEventListener('change', changeCallback);		//change라는 이벤트가 발생하면 함수를 실행하세요	//함수뒤에 괄호가 있으면 이벤트가 실행됐을 때가 아니라 바로 실행되기 때문에 그냥 함수 이름만 불러와야 한다.
 
-	// 여기서 e는 해당 event로 여러가지 속성이 있으며 그 중 target을 하게 되면 <select><option></option></select> 와 같이 뜸..
-	function changeCallBack(e) {
-		// e.target.value를 통해 내가 선택한 값을 가져올 수 있음.
+	function changeCallback(e) {
+		//console.log(e.target.value);	//선택한 값
+		//선택된 시도 값에 대한 정보만 보여주고 싶음(센터명)-필터링한 값
 		let searchSido = e.target.value;
 
-		// 가져온 데이터(rawData)는 json타입의 객체 [{},{}] 이므로 필터를 써서 검색한값과 원래 데이터의 sido값을 일치한 것만 filterAry에 담음
-		let filterAry = rawData.filter(ele => ele.sido == searchSido);
-		// 필터로 걸러진 값으로 table을 만든다.
-		genTable(filterAry)
+		let filterAry = rawData.filter(center => searchSido == center.sido);
+		genTable(filterAry);
+	}
+	genTable(rawData, 1);	//첫 화면에서 2페이지를 보고 싶을 때
+	//let filterAry = rawData.filter((center,idx) => idx < 10);		//초기화면으로 서울특별시를 보여줌
+	//genTable(filterAry);		//genTable(rawData)로 설정하면  전체 데이터를 다 보여주는게 초기화면으로 설정이 됨
+}
+
+
+
+//테이블 안에 속성을 만드는 것을 따로 빼내서 데이터마다 다르게 테이블 설정 가능함. rawData부분에 다른 데이터를 넣으면 그 값에 맞는 테이블 생성
+function genTable(rawData = [], page = 1) {
+	//초기화
+	document.querySelector("#show").innerHTML = '';
+
+	//보여줘야 할 데이터의 첫번째와 마지막을 계산(1~10,11~20)
+	let startNo = (page - 1) * 10;		//인덱스 값을 맞추기 위해 1을 버림
+	let endNo = page * 10;
+
+	
+	// 페이지에 대한 정보 만들어주기(첫페이지와 마지막 페이지 계산)
+	let totalCnt = rawData.length;
+	let lastPage = Math.ceil(totalCnt / 10);
+	let beginPage = page-2
+	let endPage = page+2;
+	let prevPage, nextPage = false;
+	
+	if(page-2 < 1){
+		beginPage = 1;
+		endPage = 5;
+	}	
+	if(page+2 > lastPage){
+		endPage = lastPage;
+		beginPage = lastPage-5
+	}
+	
+	if (beginPage > 1) {
+		prevPage = true;
+	}
+	if (endPage < lastPage) {
+		nextPage = true;
+	}
+	document.querySelector('.pagination').innerHTML = '';
+
+	//이전 페이지 여부
+	if (prevPage) {
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = '&laquo;';
+		aTag.addEventListener('click', function(e) {
+			genTable(rawData, page-5)
+		})
+		document.querySelector('.pagination').append(aTag);
+	}
+	
+	//전체 페이지
+	for (let i = beginPage; i <= endPage; i++) {
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = i;
+		if (i == page) {
+			aTag.setAttribute('class', 'active');
+		}
+		aTag.addEventListener('click', function(e) {
+			genTable(rawData, i);
+			
+		})
+		document.querySelector('.pagination').append(aTag);
 	}
 
-	// 선택하지 않아도 처음 화면을 보여주기 위해 만듦.
-	// filter로 index 5번까지만 보여줄 수 있게
-	let filterAry = rawData.filter((ele, index) => index < 5)
-	genTable(filterAry)
-}// end fetchCallBack함수
+	//다음 페이지 여부
+	if (nextPage) {
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = '&raquo;';
+		aTag.addEventListener('click', function(e) {
+			genTable(rawData, endPage + 1)
+		})
+		document.querySelector('.pagination').append(aTag);
+	}
 
+	//전체 raw데이터로 출력한 값
+	let thead = table.makeHead(titles);		//헤더정보
+	thead.setAttribute('style', 'color:green')
 
-//테이블을 만드는 함수
-function genTable(rawData = [], page = 1) {
-	// 초기화해서 점점 누적이 안되게 함.
-	document.querySelector('#show').innerHTML = '';
-	
-	// thead를 만들기 위해..
-	let thead = table.makeHead(title) // 헤더 정보
-	
-	// reduce를 이용하여 나중에 필터로 거를 수 있게 하려고 함....
-	// makeBody에 들어갈 값인데 [{},{}]형식으로 매개변수를 넣어야 한다. 
-	let mapData = rawData.reduce((acc, center) => { //매핑 정보 출력시킴 
-		//내가 가져오고 싶은 데이터만 출력하기 위해 reduce가 돌아갈때, 각각의 객체를 만들고 있음.
-		let newData = {
-			id: center.id,
-			centerName: center.centerName.replace('코로나19', ''),
-			org: center.org,
-			phoneNumber: center.phoneNumber,
-			lat: center.lat,
-			lng: center.lng
+	let mapData = rawData.reduce((acc, center, idx) => {	//매핑정보 출력
+		if (idx >= startNo && idx < endNo) {
+			let newCenter = {
+				id: center.id,
+				centerName: center.centerName.replace('코로나19 ', ''),
+				facilityName: center.facilityName,
+				phoneNumber: center.phoneNumber,
+				lat: center.lat,
+				lng: center.lng
+			}
+			acc.push(newCenter)
 		}
-		acc.push(newData);
 		return acc;
 	}, []);
-	
-	// tbody 만듦
-	let tbody = table.makeBody(mapData); // [{},{},{},...{}]
-	
-	
-	let table1 = document.createElement('table');
-	table1.setAttribute('border', '1')
-	table1.append(thead)
-	table1.append(tbody)
-	document.querySelector('#show').append(table1)
+	//console.log(mapData)
 
-	// tr 클릭 이벤트 등록
-	// 모든 querySelectorAll을 할때, thead>tr은 빼고 가져와야해서 tbody>tr로 함
-	let targetTr = document.querySelectorAll('tbody>tr')
-	// querySelectorAll 일때 forEach가능
+	let tb = document.createElement('table');
+	tb.setAttribute('border', '1');
+	//tb.setAttribute('style','border:solid');
+	let tbody = table.makeBody(mapData);	//[{},{},{}...{}]같은 형태로 보냄
+	tb.append(thead, tbody);
+	document.querySelector("#show").append(tb);
+
+	//tr 클릭 이벤트 등록(지도로 연결)
+	let targetTr = document.querySelectorAll('tbody tr');
 	targetTr.forEach(tr => {
-		// 각각의 element(tr)가 addEventListner를 통해 클릭 이벤트를 가지게 됨.
 		tr.addEventListener('click', function(e) {
-			// tr.childern은 td를 의미하는데, index[4] = 위도, index[5] = 경도를 의미함.
-			let lat = tr.children[4].innerHTML;
-			let lng = tr.children[5].innerHTML;
-			
-			// lodcation.href = 현재 url의 값을 의미함.
-			console.log(location.href)
-			
-			
-			// get방식으로 파라미터값을 넘기려고 하는듯??
-			// helloWeb/js/daumapi.html?x=?&y=? 와 같은 주소로 서버에 요청하게 됨.
-			open(`daumapi.html?x=${lat}&y=${lng}`)
+			//console.log(tr.children[4].innerHTML,tr.children[5].innerHTML)		//내가 누룬 값의 위도,경도 값을 가져옴
+			let lat = tr.dataset.lat;	//tr.children[4].innerHTML
+			let lng = tr.dataset.lng;
+			window.open('daumAPI.html?x=' + lat + '&y=' + lng);
 		})
-
 	})
-
 }
+
+
