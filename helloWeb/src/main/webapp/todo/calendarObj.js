@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+//calendarObj.js
+
+
+const cal = {
+	showCalendar(){
+		console.log('showCalendar')
+	}
+}
+
+document.getElementById('todayBtn').onclick = function(e){
+	alert('오늘 날짜입니다')
+}
+=======
 
 
 let button2 = document.querySelector('#button2');
@@ -64,3 +78,4 @@ button.addEventListener('click',function(){
 		calendar.makeCalender();
 })
 
+>>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git

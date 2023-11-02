@@ -54,7 +54,11 @@ public class StudentListServlet extends HttpServlet {
 		List<StudentVO> list = svc.listStudent();
 		
 		//자바의 객체를 제이슨 문자열로 변경
+<<<<<<< HEAD
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+=======
+		Gson gson = new GsonBuilder().create();
+>>>>>>> branch 'master' of https://github.com/jaehyeon112/web.git
 		String json = gson.toJson(list);
 		
 		
