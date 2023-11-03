@@ -1,27 +1,30 @@
 package co.yedam.common;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
-import co.yedam.studuent.service.StudentService;
-import co.yedam.studuent.serviceImpl.StudentServiceImpl;
+import co.yedam.board.service.BoardService;
+import co.yedam.board.service.BoardVO;
+import co.yedam.board.serviceImpl.BoardDAO;
+import co.yedam.board.serviceImpl.BoardServiceImpl;
 
 public class MainExe {
 	public static void main(String[] args) {
 		
-		StudentService svc = new StudentServiceImpl();
+		BoardVO vo = new BoardVO();
+		vo.setTitle("다시다시다시다");
+		vo.setWriter("user01");
+		vo.setImage(null);
+		vo.setContent("되네 ㅡㅡ.");
+		vo.setBoardNo(1);
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("==========================================");
-		System.out.println("1.목록 |2. 등록 |3.수정 |4.삭제 |5. 단건 조회");
-		System.out.println("==========================================");
-		System.out.print("번호를 선택하세요 = ");
-		int selNo = sc.nextInt();sc.nextLine();
-		switch(selNo) {
-		case 1:
-			svc.listStudent().forEach(student->System.out.println(student));
-		case 2:
-			
-		}
-			
+		BoardService bsv = new BoardServiceImpl();
+		BoardDAO dao = new BoardDAO();
+		List<BoardVO> list = new ArrayList<>();
+		list = dao.selectList();
+		System.out.println(dao.update(vo));
+		
+		
+		
 	}
 }
