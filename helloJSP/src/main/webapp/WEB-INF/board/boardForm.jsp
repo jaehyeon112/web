@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>boardForm.jsp</title>
-</head>
-<body>
-	<h3>게시글 등록화면</h3>
-	<form action="addboard.do" method="get">
-	<table border="1">
+<%@include file="../layout/menu.jsp" %>
+<%@include file="../layout/header.jsp" %>
+
+
+	<h3>게시글 등록화면</h3>							<!-- 파일 전송하려면 multipart/form-data -->
+	<form action="addBoard.do" method="POST" enctype="multipart/form-data">
+	<table class="table">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="title"></td>
+			<td><input class="form-control" type="text" name="title"></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="writer"></td>
+			<td><input  class="form-control" type="text" readonly name="writer" value="<%=logId %>"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><textarea cols="40" rows="5" name="content"></textarea></td>
+			<td colspan="2"><textarea class="form-control"  cols="40" rows="5" name="content"></textarea></td>
+		</tr>
+		<tr>
+		<th>파일명</th>
+		<td><input class="form-control" type="file" name="img"></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -28,7 +29,4 @@
 			</td>
 		</tr>
 	</table>
-</form>
-
-</body>
-</html>
+<%@include file="../layout/footer.jsp" %>

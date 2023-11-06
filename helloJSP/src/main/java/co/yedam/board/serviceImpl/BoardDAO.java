@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.yedam.board.service.BoardVO;
+import co.yedam.board.service.MemberVO;
 import co.yedam.common.DataSource;
 
 public class BoardDAO {
@@ -35,7 +36,7 @@ public class BoardDAO {
 				vo.setLastUpdate(rs.getDate("last_update"));
 				vo.setTitle(rs.getString("title"));
 				vo.setViewCnt(rs.getInt("view_cnt"));
-				vo.setWirteDate(rs.getDate("write_date"));
+				vo.setWriteDate(rs.getDate("write_date"));
 				vo.setWriter(rs.getString("writer"));
 				list.add(vo);
 			}
@@ -63,7 +64,7 @@ public class BoardDAO {
 				vo.setLastUpdate(rs.getDate("last_update"));
 				vo.setTitle(rs.getString("title"));
 				vo.setViewCnt(rs.getInt("view_cnt"));
-				vo.setWirteDate(rs.getDate("write_date"));
+				vo.setWriteDate(rs.getDate("write_date"));
 				vo.setWriter(rs.getString("writer"));
 			}
 		} catch (SQLException e) {
@@ -76,7 +77,7 @@ public class BoardDAO {
 	
 	
 	public int insert(BoardVO vo) {
-		sql = "insert into board(board_no,title,content,writer,image) values(seq_board.nextval, ?,?,?,?)";
+		sql = "insert into board(board_no,title,content,writer,image) values(seq_board.nextval,?,?,?,?)";
 		conn = dao.getConnection();
 		int num = 0;
 		try {
@@ -117,13 +118,12 @@ public class BoardDAO {
 	}
 	public int delete(BoardVO vo) {
 		int n = 0;
-		sql = "delete from board where Board_no = ? and writer = ? ";
+		sql = "delete from board where Board_no = ? ";
 		conn = dao.getConnection();
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, vo.getBoardNo());
-			psmt.setString(2, vo.getWriter());
-			psmt.executeUpdate();
+			n = psmt.executeUpdate();
 			return n;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,7 +140,7 @@ public class BoardDAO {
 		conn = dao.getConnection();
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.executeUpdate();
+			n = psmt.executeUpdate();
 			return n;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -149,6 +149,72 @@ public class BoardDAO {
 		}
 		
 		return 0;
+	}
+	
+	// 아이디/ 비번 -> 조회값 boolean. 
+	public boolean getUser(String id, String pw) {
+		sql = "select * from member where mid = ? and pass = ?";
+		conn = dao.getConnection();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return false;
+	}
+	
+	public MemberVO adminCheck() {
+		MemberVO vo = new MemberVO();
+		sql = "select * from member where responsbility ='Admin'";
+		conn = dao.getConnection();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				vo.setMid(rs.getString("mid"));
+				vo.setPass(rs.getString("pass"));
+				vo.setName(rs.getString("name"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setResponsbility(rs.getString("responsbility"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
+	
+	public List<MemberVO> listUser() {
+		List<MemberVO> list = new ArrayList<>();
+		sql = "select * from member";
+		conn = dao.getConnection();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setMid(rs.getString("mid"));
+				vo.setPass(rs.getString("pass"));
+				vo.setName(rs.getString("name"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setResponsbility(rs.getString("responsbility"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
 	}
 	
 	

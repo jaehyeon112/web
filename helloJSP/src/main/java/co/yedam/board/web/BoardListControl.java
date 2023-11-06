@@ -19,7 +19,6 @@ public class BoardListControl implements Command {
 		// 서블릿, jsp 기능은 서로 같으나 역할을 분리함.
 		// 서블릿(데이터를 처리하는 controller) , jsp(보여주기만 하는 view의 역할)
 		BoardService svc = new BoardServiceImpl();
-		BoardDAO dao = new BoardDAO();
 		List<BoardVO> list = svc.boardList();
 		
 		// 요청에 list라는 값을 넘기기 위해 setAttriㅠㅕㅅ
@@ -29,7 +28,6 @@ public class BoardListControl implements Command {
 		// 이동할 페이지 정보를 요청을 재지정해서 jsp에 넘겨줘야함.. forward 메서드로!
 		RequestDispatcher rd =  req.getRequestDispatcher("WEB-INF/board/boardList.jsp");
 		try {
-			
 			// forward 할때 받은 인자값을 그대로 다시 전달하고 있음.
 			rd.forward(req, resp);
 		} catch (Exception e) {

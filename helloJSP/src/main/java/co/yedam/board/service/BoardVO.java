@@ -14,10 +14,9 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private String writer;
-	private Date wirteDate;
+	private Date writeDate;
 	private int viewCnt;
 	private String image;
 	private Date lastUpdate;
-	
 	
 } 
