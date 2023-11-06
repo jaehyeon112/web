@@ -20,12 +20,11 @@ public class LoginControl implements Command {
 		
 		BoardService svc = new BoardServiceImpl();
 		MemberVO vo = svc.resCheck();
+		HttpSession session = req.getSession();
 		if(vo.getMid().equals(id)) {
-			HttpSession session = req.getSession();
 			session.setAttribute("admin", "admin");
 		}
 		if(svc.loginCheck(id,pw)) {
-			HttpSession session = req.getSession();
 			session.setAttribute("logId", id);
 			
 			try {

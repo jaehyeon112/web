@@ -14,9 +14,7 @@ public class ModifyFormControl implements Command {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// 수정화면오픈.
 		String bno = req.getParameter("bno");
-		String writer = req.getParameter("writer");
 		BoardService svc = new BoardServiceImpl();
-		System.out.println("bno값 ::::::: " + bno);
 		BoardVO vo = svc.getBoard(Integer.parseInt(bno));
 		req.setAttribute("vo", vo);
 		try {
