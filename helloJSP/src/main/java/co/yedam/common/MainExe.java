@@ -12,16 +12,14 @@ public class MainExe {
 		SqlSession session = DataSourceMybatis.getInstance().openSession(true);
 		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 		
-//		List<ReplyVO> list = mapper.replyList(1);
-//		list.forEach(vo -> System.out.println(vo));
+		if(mapper.deleteReply(11)==1) {
+			System.out.println("성공!");
+		}else {
+			System.out.println("실패");
+		}
 		
-		ReplyVO vo = mapper.selectReply(4);
-		vo.setReply("수정되니?");
-		vo.setReplyer("김재현");
-		vo.setBoardNo(3);
-		
-		mapper.deleteReply(3);
-		
+		;
+	
 		
 	}
 }

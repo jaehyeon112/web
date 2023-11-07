@@ -13,6 +13,7 @@
 <%@include file="../layout/header.jsp"%>
 <%
 	BoardVO vo = (BoardVO) request.getAttribute("bno");
+	System.out.println(vo);
 	%>
 
 <h3>상세화면(조회화면)</h3>
@@ -75,19 +76,17 @@
 </ul>
 <script>
 	//form의 경로를 재지정해줘야해서
-	document.querySelector('input[type=button]').addEventListener('click',
+ 	document.querySelector('input[type=button]').addEventListener('click',
 		function (e) {
 			document.forms.myForm.action = 'removeForm.do'
 			document.forms.myForm.submit();
 		});
-
-
-
+ 
 	let bno = "<%=vo.getBoardNo()%>";
 	bno = document.querySelector('.boardNo').innerHTML;
 	fetch('replyList.do?bno=' + bno).then(resolve => resolve.json()).then(result => {
+		console.log(result)
 		let ul = document.querySelector('#list')
-		console.log(result);
 		result.forEach(element => {
 			let li = makeRow(element);
 			document.querySelector('#list').append(li)
@@ -98,14 +97,19 @@
 	function makeRow(element){
 		let temp = document.querySelector('#template').cloneNode(true);
 			temp.style.display = 'block'
-			console.log(temp);
 			temp.querySelector('span:nth-of-type(1)').innerHTML = '  '+element.replyNo;
 			temp.querySelector('b').innerHTML = '  '+ element.reply;
 			temp.querySelector('span:nth-of-type(2)').innerHTML ='  '+ element.replyer;
 			temp.querySelector('span:nth-of-type(3)').innerHTML = '  '+element.replyDate;
-			temp.querySelector('button').
+			temp.querySelector('#template > button').addEventListener('click',function(){
+				fetch('delReply.do?replyNo='+element.replyNo).then(resolve=>{console.log(resolve)
+					temp.remove();
+				
+				})
+			})
 			return temp;
 	}
+
 
 	// 등록버튼에 대한 이벤트
 	document.querySelector('#addReply').addEventListener('click',function(e){

@@ -5,15 +5,14 @@
 	<!-- id = 메소드이름 resultType = 반환타입 -->
 	<select id="replyList" parameterType="int"
 		resultType="co.yedam.reply.service.ReplyVO">
-		select * from reply where board_no = #{boardNo}
+		select * from reply where board_no = #{boardNo} order by reply_No
 	</select>
 	
 	
 	<select id="selectReply" resultType="co.yedam.reply.service.ReplyVO"
 	parameterType="int">
-		select * from reply where reply_no = #{replyNo}
+		select * from reply where reply_no = #{replyNo} 
 	</select>
-	
 	
 	<insert id="insertReply" parameterType="co.yedam.reply.service.ReplyVO">
   <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">

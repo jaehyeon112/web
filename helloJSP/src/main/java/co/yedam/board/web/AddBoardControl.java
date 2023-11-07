@@ -59,7 +59,6 @@ public class AddBoardControl implements Command {
 			try {
 				resp.sendRedirect("boardList.do");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
