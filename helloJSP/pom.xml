@@ -8,7 +8,15 @@
 	<packaging>war</packaging>
 	<description>JSP 프로젝트 연습</description>
 	<dependencies>
-		
+		<!-- Mybatis -->
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.14</version>
+		</dependency>
+
+
 		<!-- jdbc드라이버 -->
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
@@ -16,7 +24,7 @@
 			<artifactId>ojdbc8</artifactId>
 			<version>19.3.0.0</version>
 		</dependency>
-		
+
 		<!-- lombok -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
@@ -25,7 +33,7 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- gson -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
@@ -33,7 +41,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
 		</dependency>
-		
+
 		<!-- cos -->
 		<!-- https://mvnrepository.com/artifact/servlets.com/cos -->
 		<dependency>

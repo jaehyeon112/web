@@ -2,48 +2,58 @@ package co.yedam.board.serviceImpl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import co.yedam.board.mapper.BoardMapper;
 import co.yedam.board.service.BoardService;
 import co.yedam.board.service.BoardVO;
 import co.yedam.board.service.MemberVO;
+import co.yedam.common.DataSourceMybatis;
 
 public class BoardServiceImpl implements BoardService {
 	BoardDAO dao = new BoardDAO();
 
+	SqlSession sqlSession = DataSourceMybatis.getInstance().openSession(true);
+	//인터페이스									실행시점의 인스턴스를 가져오기 위해서..
+	BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+	
 	@Override
 	public List<BoardVO> boardList() {
-		return dao.selectList();
+		return mapper.selectList();
 	}
 
 	@Override
 	public BoardVO getBoard(int boardNO) {
-		dao.updateCnt(boardNO);
-		return dao.select(boardNO);
+		mapper.updateCnt(boardNO);
+		return mapper.select(boardNO);
+	//	dao.updateCnt(boardNO);
+	//	return dao.select(boardNO);
 	}
 
 	@Override
 	public boolean addBoard(BoardVO vo) {
-		return dao.insert(vo) == 1;
+		return mapper.insert(vo) == 1;
 	}
 
 	@Override
 	public boolean editBoard(BoardVO vo) {
-		return dao.update(vo) == 1;
+		return mapper.update(vo) == 1;
 	}
 
 	@Override
 	public boolean removeBoard(BoardVO vo) {
-		return dao.delete(vo) == 1;
+		return mapper.delete(vo) == 1;
 	}
 
 	@Override
-	public boolean loginCheck(String id, String pw) {
+	public MemberVO loginCheck(String id, String pw) {
 
-		return dao.getUser(id, pw);
+		return mapper.getUser(id, pw);
 	}
 
 	@Override
 	public List<MemberVO> memberList() {
-		return dao.listUser();
+		return mapper.memberList();
 	}
 
 	@Override

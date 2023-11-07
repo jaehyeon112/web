@@ -11,7 +11,7 @@ public interface BoardService {
 	public boolean removeBoard(BoardVO vo);
 	
 	//로그인처리
-	public boolean loginCheck(String id, String pw);
+	public MemberVO loginCheck(String id, String pw);
 	public List<MemberVO> memberList();
 	public MemberVO resCheck();
 	

@@ -24,7 +24,7 @@ public class LoginControl implements Command {
 		if(vo.getMid().equals(id)) {
 			session.setAttribute("admin", "admin");
 		}
-		if(svc.loginCheck(id,pw)) {
+		if(svc.loginCheck(id,pw)!=null) {
 			session.setAttribute("logId", id);
 			
 			try {

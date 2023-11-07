@@ -19,6 +19,9 @@ import co.yedam.board.web.ModifyBoardControl;
 import co.yedam.board.web.ModifyFormControl;
 import co.yedam.board.web.RemoveBoardControl;
 import co.yedam.board.web.RemoveFormControl;
+import co.yedam.reply.web.AddReplyControl;
+import co.yedam.reply.web.DelReplyControl;
+import co.yedam.reply.web.ReplyListControl;
 
 // 프론트 컨트롤러임.
 public class FrontController extends HttpServlet {
@@ -75,6 +78,12 @@ public class FrontController extends HttpServlet {
 			//삭제
 			map.put("/removeForm.do", new RemoveFormControl());
 			map.put("/removeBoard.do", new RemoveBoardControl());
+			
+			//댓글 목록 json형태로 목록을 가져오게함.
+			map.put("/replyList.do", new ReplyListControl());
+			map.put("/addReply.do", new AddReplyControl());
+			map.put("/delReply.do", new DelReplyControl());
+			
 	}
 	
 	@Override

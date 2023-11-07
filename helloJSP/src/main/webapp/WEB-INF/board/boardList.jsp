@@ -29,7 +29,7 @@
 				<td><%=vo.getBoardNo()%></td>
 				<td><a href="getBoard.do?bno=<%=vo.getBoardNo()%>"><%=vo.getTitle()%> </a></td>
 				<td><%=vo.getWriter()%></td>
-				<td><%=vo.getWriteDate()%></td>
+				<td><%=vo.getLastUpdate()%></td>
 			</tr>
 			<%
 			}

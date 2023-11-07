@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper SYSTEM "path/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.yedam.board.mapper.BoardMapper">
+	<!-- id = 메소드이름 resultType = 반환타입 -->
+	<select id="selectList"
+		resultType="co.yedam.board.service.BoardVO">
+		select * from board order by board_no
+	</select>
+
+	<select id="select" resultType="co.yedam.board.service.BoardVO"
+		parameterType="int">
+		select * from board where board_no = #{boardNO}
+	</select>
+
+	<update id="updateCnt" parameterType="int">
+		update board set view_cnt =
+		view_cnt+1 where board_no = #{boardNo}
+	</update>
+	<!-- 반환타입이 알아서 int -->
+
+	<insert id="insert"
+		parameterType="co.yedam.board.service.BoardVO">
+		insert into board(board_no,title,content,writer,image)
+		values(seq_board.nextval,#{title},#{content},#{writer},#{image})
+	</insert>
+
+	<update id="update"
+		parameterType="co.yedam.board.service.BoardVO">
+		update board set title = #{title}, content = #{content} , image =
+		nvl(#{image},image) , last_update = sysdate where Board_no =
+		#{boardNo} and writer = #{writer}
+	</update>
+
+
+	<delete id="delete" parameterType="int">
+		delete from board where
+		board_no=#{boardNo}
+	</delete>
+
+	<!-- 파라미터가 2개인 경우에는 @Param을 사용 -->
+	<select id="getUser"
+		resultType="co.yedam.board.service.MemberVO" parameterType="String">
+		select *
+		from member where mid= #{id} and pass = #{pw}
+	</select>
+
+	<select id="memberList"
+		resultType="co.yedam.board.service.MemberVO">
+		select * from member order by 1
+	</select>
+
+
+</mapper>	
