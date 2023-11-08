@@ -13,10 +13,10 @@ public class GetBoardControl implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		// boardBo: 1 => DB search => jsp.
-		String bno = req.getParameter("bno");
+		String bno = req.getParameter("vo");
 		BoardService svc = new BoardServiceImpl();
 		BoardVO vo = svc.getBoard(Integer.parseInt(bno));
-		req.setAttribute("bno", vo);
+		req.setAttribute("vo", vo);
 		
 		//요청 재지정.
 		try {

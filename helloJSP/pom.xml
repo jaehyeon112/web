@@ -15,6 +15,17 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.5.14</version>
 		</dependency>
+		<!-- https://tomcat.apache.org/taglibs/standard/  jsp태그들을 html에서 쉽게 쓰려고함 -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-spec</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 
 
 		<!-- jdbc드라이버 -->

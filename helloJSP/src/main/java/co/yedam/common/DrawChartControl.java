@@ -1,43 +1,39 @@
-package co.yedam.reply.web;
+package co.yedam.common;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import co.yedam.common.Command;
 import co.yedam.reply.service.ReplyService;
 import co.yedam.reply.service.ReplyServiceImpl;
 
-public class DelReplyControl implements Command {
+public class DrawChartControl implements Command {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		String replyNo = req.getParameter("replyNo");
+		// TODO Auto-generated method stub
+		// json 데이터로 작성자, 건수 값을 전달하게끔...
+		
 		ReplyService svc = new ReplyServiceImpl();
+		List<Map<String,Object>> map = svc.getReplyCountByWriter();
 		
-		Map<String, Object> map = new HashMap<>();
-		if(svc.delReply(Integer.parseInt(replyNo))){
-			map.put("retCode", "OK");
-			
-		}else {
-			map.put("retCode", "NG");
-		}
 		
+		resp.setContentType("html/json;charset=utf-8");
 		Gson gson = new GsonBuilder().create();
+		
 		try {
 			resp.getWriter().print(gson.toJson(map));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		
 	}
-	
+
 }

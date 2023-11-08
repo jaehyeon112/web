@@ -19,4 +19,5 @@ public class BoardVO {
 	private String image;
 	private Date lastUpdate;
 	
+	
 } 

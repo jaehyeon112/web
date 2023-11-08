@@ -46,7 +46,7 @@ public class ModifyBoardControl implements Command {
 				String title = mr.getParameter("title");
 				String writer = mr.getParameter("writer");
 				String content = mr.getParameter("content");
-				String image = mr.getFilesystemName("images");
+				String image = mr.getFilesystemName("img");
 				
 				vo.setBoardNo(Integer.parseInt(bno));
 				vo.setTitle(title);

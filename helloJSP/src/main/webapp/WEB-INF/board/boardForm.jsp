@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@include file="../layout/menu.jsp" %>
 <%@include file="../layout/header.jsp" %>
 
@@ -13,7 +14,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input  class="form-control" type="text" readonly name="writer" value="<%=logId %>"></td>
+			<td><input  class="form-control" type="text" readonly name="writer" value="${logId}"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><textarea class="form-control"  cols="40" rows="5" name="content"></textarea></td>

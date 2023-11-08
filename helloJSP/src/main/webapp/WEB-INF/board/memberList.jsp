@@ -2,14 +2,16 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@include file="../layout/menu.jsp" %>
 <%@include file="../layout/header.jsp" %>
 
+<c:forEach var="i" begin="1" end="10" step="1">
+</c:forEach>
 
 	<h3>게시판 목록.</h3>
-	<%
-	List<MemberVO> list2 = (List<MemberVO>) request.getAttribute("list2"); // list<BoardVO> list;
-	%>
 
 	<table class="table">
 		<thead>
@@ -20,17 +22,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (MemberVO vo : list2) {
-			%>
+			<c:forEach items="${list2}" var="list2"  >
 			<tr>
-				<td><%=vo.getMid()%></td>
-				<td><%=vo.getName()%></td>
-				<td><%=vo.getPhone()%></td>
+				<td>${list2.mid}</td>
+				<td>${list2.name}</td>
+				<td>${list2.phone}</td>
 			</tr>
-			<%
-			}
-			%>
+			 </c:forEach>
+			
+			
 		</tbody>
 	</table>
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../layout/menu.jsp"%>
-<%@include file="../layout/header.jsp"%>
+<jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/header.jsp"></jsp:include>
 
 <form action="login.do" method="post">
 	<table class="table">
@@ -17,8 +17,7 @@
 		<td colspan="2"><input type="submit" value="로그인"></td>
 		</tr>
 	</table>
-
 </form>
 
 
-<%@include file="../layout/footer.jsp"%>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
