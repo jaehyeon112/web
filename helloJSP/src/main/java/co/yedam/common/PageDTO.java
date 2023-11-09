@@ -19,10 +19,10 @@ public class PageDTO {
 		int realEnd = (int)Math.ceil(total / 5.0);
 		
 		// 보여지는 페이지 버튼 수 /10으로 나눈것보다 1개 더 많을 수 있게 하기 위해..
-		this.endPage = (int)Math.ceil(currentPage / 10.0)*10;
-		this.startPage = endPage-9;
+		//this.endPage = (int)Math.ceil(currentPage / 10.0)*10;
+		//this.startPage = endPage-9;
 		this.startPage = startPage < 1 ? 1 : endPage-9 ;
-		this.endPage = this.endPage > realEnd ? realEnd : this.endPage;
+		this.endPage = this.endPage > realEnd ? realEnd : (int)Math.ceil(currentPage / 10.0)*10;
 		
 		this.prev = this.startPage > 1;
 		this.next = this.endPage < realEnd; 

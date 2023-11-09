@@ -39,8 +39,9 @@
 				</c:otherwise>
 				</c:choose>	                    
                     	<!-- 관리자 권한일 경우에만 얘를 보여준다. -->
-                  <c:if test="${!empty admin && admin == 'Admin' } ">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">회원관리</a>
+                   ${admin }
+                  <c:if test="${admin != null}">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원관리</a>
                   </c:if>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>

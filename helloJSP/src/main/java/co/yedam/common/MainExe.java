@@ -12,7 +12,7 @@ public class MainExe {
 		SqlSession session = DataSourceMybatis.getInstance().openSession(true);
 		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 		
-		List<Map<String, Object>> map = mapper.getReplyCountByWriter();
-		System.out.println(map);
+		
+		
 	}
 }

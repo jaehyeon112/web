@@ -45,6 +45,8 @@ public class ReplyListControl implements Command {
 		
 		// list의 값을 json으로 바꿈.
 		String json = gson.toJson(map);
+		
+		
 		resp.setContentType("text/json;charset=utf-8");
 		try {
 			resp.getWriter().print(json);

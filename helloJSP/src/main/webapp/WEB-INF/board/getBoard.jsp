@@ -17,6 +17,7 @@
  BoardVO vo = (BoardVO) request.getAttribute("vo");
  -->
 <h3>상세화면(조회화면)</h3>
+${vo }
 <form action="modifyForm.do" name="myForm">
 	<input type="hidden" name="bno" value="${vo.boardNo }">
 	<table class="table">
@@ -92,6 +93,8 @@
  
 	let bno = "${vo.boardNo}";
 	bno = document.querySelector('.boardNo').innerHTML;
+	let writer = "${logId}";
+	
 	let page = 1;
 	showList();
 
@@ -109,7 +112,7 @@
 		// foreach를 이용해서 댓글 생성(li)
 		result.list.forEach(element => {
 			let li = makeRow(element);
-			document.querySelector('#list').append(li)
+			ul.append(li)
 		});
 		//page생성
 		console.log(result.dto)
@@ -195,10 +198,10 @@
 
 	// 등록버튼에 대한 이벤트
 	document.querySelector('#addReply').addEventListener('click',function(e){
-		let reply = document.querySelector('#content').value;
-		let writer = "${logId}";
+		
 		console.log(writer);
 		console.log(bno);
+		let reply = document.querySelector('#content').value;
 		console.log(reply);
 
 		 if(!bno || writer == 'null' || !reply){
